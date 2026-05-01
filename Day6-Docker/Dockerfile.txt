@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nishant's Docker App</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 { color: #00d4ff; font-size: 50px; }
+        p  { font-size: 20px; }
+        .box {
+            background: #16213e;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐳 Hello from Docker!</h1>
+    <div class="box">
+        <p>Built by <strong>Nishant Poudel</strong></p>
+        <p>Running inside a Docker Container!</p>
+        <p>🚀 AWS Cloud & DevOps Engineer in Training</p>
+    </div>
+</body>
+</html>
+
+#Portfolio-hub
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nishant Poudel | DevOps Engineer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 3px solid #00d4ff;
+        }
+        .header h1 { font-size: 48px; color: #00d4ff; }
+        .header p { font-size: 20px; color: #aaa; margin-top: 10px; }
+        .badge {
+            display: inline-block;
+            background: #00d4ff;
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .section h2 {
+            color: #00d4ff;
+            font-size: 28px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00d4ff;
+            padding-left: 15px;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .skill-card {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #00d4ff33;
+        }
+        .skill-card .icon { font-size: 30px; }
+        .skill-card p { margin-top: 10px; color: #aaa; }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .project-card {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #00d4ff33;
+        }
+        .project-card h3 { color: #00d4ff; }
+        .project-card p { color: #aaa; margin-top: 8px; font-size: 14px; }
+        .tag {
+            display: inline-block;
+            background: #00d4ff22;
+            color: #00d4ff;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-top: 8px;
+            margin-right: 5px;
+        }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+        .footer span { color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Nishant Poudel</h1>
+        <p>AWS Cloud & DevOps Engineer in Training</p>
+        <div class="badge">🚀 Open to Work</div>
+    </div>
+    <div class="section">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="icon">☁️</div>
+                <strong>AWS</strong>
+                <p>EC2, S3, IAM, VPC, CloudWatch, SNS</p>
+            </div>
+            <div class="skill-card">
+                <div class="icon">🐳</div>
+                <strong>Docker</strong>
+                <p>Containers, Images, Dockerfile, Docker Hub</p>
+            </div>
+            <div class="skill-card">
+                <div class="icon">🐍</div>
+                <strong>Python</strong>
+                <p>boto3, Automation, Scripting</p>
+            </div>
+            <div class="skill-card">
+                <div class="icon">🌐</div>
+                <strong>Networking</strong>
+                <p>VPC, Subnets, Route Tables, Security Groups</p>
+            </div>
+            <div class="skill-card">
+                <div class="icon">🖥️</div>
+                <strong>Linux</strong>
+                <p>Bash, Cron, Shell Scripting</p>
+            </div>
+            <div class="skill-card">
+                <div class="icon">📊</div>
+                <strong>Monitoring</strong>
+                <p>CloudWatch, Alarms, Logs, Metrics</p>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>🏥 EC2 Health Checker</h3>
+                <p>Automated health monitoring system that checks EC2 status and sends alerts via CloudWatch and SNS.</p>
+                <span class="tag">Python</span>
+                <span class="tag">boto3</span>
+                <span class="tag">CloudWatch</span>
+            </div>
+            <div class="project-card">
+                <h3>🐳 Docker Web App</h3>
+                <p>Custom Docker image with Nginx web server. Built, containerized and pushed to Docker Hub.</p>
+                <span class="tag">Docker</span>
+                <span class="tag">Nginx</span>
+                <span class="tag">Docker Hub</span>
+            </div>
+            <div class="project-card">
+                <h3>📊 CloudWatch Monitoring</h3>
+                <p>Complete AWS monitoring system with custom metrics, alarms, SNS notifications and Nginx log shipping.</p>
+                <span class="tag">CloudWatch</span>
+                <span class="tag">SNS</span>
+                <span class="tag">Cron</span>
+            </div>
+            <div class="project-card">
+                <h3>🌐 VPC Network Setup</h3>
+                <p>Custom VPC with public and private subnets, Internet Gateway, Route Tables and Security Groups.</p>
+                <span class="tag">VPC</span>
+                <span class="tag">Networking</span>
+                <span class="tag">AWS</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Built with ❤️ by <span>Nishant Poudel</span></p>
+        <p>Running inside a <span>🐳 Docker Container</span> on <span>☁️ AWS EC2</span></p>
+        <p>GitHub: <span>nishant45-Ro</span></p>
+    </div>
+</body>
+</html>
+
+#as-journey-app
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nishant's AWS Journey</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 3px solid #ff9900;
+        }
+        .header h1 { font-size: 48px; color: #ff9900; }
+        .header p { font-size: 20px; color: #aaa; margin-top: 10px; }
+        .badge {
+            display: inline-block;
+            background: #ff9900;
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .section {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .section h2 {
+            color: #ff9900;
+            font-size: 28px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ff9900;
+            padding-left: 15px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: #16213e;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #ff990033;
+        }
+        .stat-card .number { font-size: 40px; color: #ff9900; font-weight: bold; }
+        .stat-card p { color: #aaa; margin-top: 5px; }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #ff9900;
+        }
+        .day { margin-bottom: 30px; position: relative; }
+        .day::before {
+            content: '';
+            position: absolute;
+            left: -39px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: #ff9900;
+            border-radius: 50%;
+        }
+        .day-header { display: flex; align-items: center; gap: 10px; }
+        .day-number {
+            background: #ff9900;
+            color: #000;
+            padding: 3px 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .day-title { font-size: 18px; font-weight: bold; color: white; }
+        .day-content {
+            background: #16213e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            border: 1px solid #ff990033;
+        }
+        .day-content p { color: #aaa; font-size: 14px; margin-bottom: 8px; }
+        .tag {
+            display: inline-block;
+            background: #ff990022;
+            color: #ff9900;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+        .status-done { color: #00ff88; font-weight: bold; }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #aaa;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+        .footer span { color: #ff9900; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>☁️ AWS Learning Journey</h1>
+        <p>From Zero to AWS DevOps Engineer Professional</p>
+        <div class="badge">🏆 Goal: AWS DevOps Engineer Pro</div>
+    </div>
+    <div class="section">
+        <h2>Progress Stats</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">6</div>
+                <p>Days Completed</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">10+</div>
+                <p>AWS Services Learned</p>
+            </div>
+            <div class="stat-card">
+                <div class="number">4</div>
+                <p>Projects Built</p>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Learning Timeline</h2>
+        <div class="timeline">
+            <div class="day">
+                <div class="day-header">
+                    <span class="day-number">Day 1</span>
+                    <span class="day-title">EC2 + S3 + Nginx</span>
+                    <span class="status-done">✅ Done</span>
+                </div>
+                <div class="day-content">
+                    <p>Launched first EC2 instance, created S3 bucket, installed Nginx and hosted live website on internet.</p>
+                    <span class="tag">EC2</span>
+                    <span class="tag">S3</span>
+                    <span class="tag">Nginx</span>
+                </div>
+            </div>
+            <div class="day">
+                <div class="day-header">
+                    <span class="day-number">Day 2</span>
+                    <span class="day-title">Python + boto3</span>
+                    <span class="status-done">✅ Done</span>
+                </div>
+                <div class="day-content">
+                    <p>Learned Python scripting with boto3 to automate S3 operations and manage AWS resources.</p>
+                    <span class="tag">Python</span>
+                    <span class="tag">boto3</span>
+                    <span class="tag">S3</span>
+                </div>
+            </div>
+            <div class="day">
+                <div class="day-header">
+                    <span class="day-number">Day 3</span>
+                    <span class="day-title">EC2 Automation + Health Checker</span>
+                    <span class="status-done">✅ Done</span>
+                </div>
+                <div class="day-content">
+                    <p>Built automated EC2 health checker with cron jobs and CloudWatch integration.</p>
+                    <span class="tag">EC2</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Cron</span>
+                </div>
+            </div>
+            <div class="day">
+                <div class="day-header">
+                    <span class="day-number">Day 4</span>
+                    <span class="day-title">VPC + Networking</span>
+                    <span class="status-done">✅ Done</span>
+                </div>
+                <div class="day-content">
+                    <p>Created custom VPC with subnets, Internet Gateway, Route Tables and Security Groups.</p>
+                    <span class="tag">VPC</span>
+                    <span class="tag">Subnets</span>
+                    <span class="tag">Networking</span>
+                </div>
+            </div>
+            <div class="day">
+                <div class="day-header">
+                    <span class="day-number">Day 5</span>
+                    <span class="day-title">CloudWatch Monitoring</span>
+                    <span class="status-done">✅ Done</span>
+                </div>
+                <div class="day-content">
+                    <p>Set up complete monitoring with CloudWatch metrics, alarms, SNS and Nginx log shipping.</p>
+                    <span class="tag">CloudWatch</span>
+                    <span class="tag">SNS</span>
+                    <span class="tag">Logs</span>
+                </div>
+            </div>
+            <div class="day">
+                <div class="day-header">
+                    <span class="day-number">Day 6</span>
+                    <span class="day-title">Docker 🐳</span>
+                    <span class="status-done">✅ Done</span>
+                </div>
+                <div class="day-content">
+                    <p>Built custom Docker images, ran containers and pushed to Docker Hub.</p>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Dockerfile</span>
+                    <span class="tag">Docker Hub</span>
+                </div>
+            </div>
+            <div class="day">
+                <div class="day-header">
+                    <span class="day-number">Day 7</span>
+                    <span class="day-title">GitHub Actions CI/CD</span>
+                    <span style="color:#aaa; font-weight:bold;">🔜 Coming Soon</span>
+                </div>
+                <div class="day-content">
+                    <p>Will automate Docker builds and deployments using GitHub Actions CI/CD pipelines.</p>
+                    <span class="tag">GitHub Actions</span>
+                    <span class="tag">CI/CD</span>
+                    <span class="tag">Docker</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Built by <span>Nishant Poudel</span> 🚀</p>
+        <p>Running on <span>🐳 Docker</span> + <span>☁️ AWS EC2</span></p>
+        <p>GitHub: <span>nishant45-Ro</span></p>
+    </div>
+</body>
+</html>
+
+
+#Connection nginx
+FROM nginx:latest
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
