@@ -1,4 +1,4 @@
-name: Docker Build and Push
+name: DevOps Dashboard CI/CD
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t nishantpdl/aws-journey:latest .
+        run: docker build -t nishantpdl/devops-dashboard:latest .
 
       - name: Push to Docker Hub
-        run: docker push nishantpdl/aws-journey:latest
+        run: docker push nishantpdl/devops-dashboard:latest
