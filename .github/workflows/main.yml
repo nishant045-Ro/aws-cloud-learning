@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: DevOps Dashboard CI/CD
+=======
+name: Docker Build and Push
+>>>>>>> 188cbd620d438eee4552586feb882e8944540546
 
 on:
   push:
@@ -7,6 +11,10 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
+=======
+
+>>>>>>> 188cbd620d438eee4552586feb882e8944540546
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -18,7 +26,14 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
+<<<<<<< HEAD
         run: docker build -t nishantpdl/devops-dashboard:latest .
 
       - name: Push to Docker Hub
         run: docker push nishantpdl/devops-dashboard:latest
+=======
+        run: docker build -t nishantpdl/aws-journey:latest .
+
+      - name: Push to Docker Hub
+        run: docker push nishantpdl/aws-journey:latest
+>>>>>>> 188cbd620d438eee4552586feb882e8944540546
