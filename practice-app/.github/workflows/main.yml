@@ -1,203 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LibraFlow | Modern Library Management</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-    </style>
-</head>
-<body class="bg-slate-950 text-slate-200 min-h-screen">
+name: Practice CI/CD App
 
-    <div class="flex">
-        <aside class="w-64 h-screen sticky top-0 bg-slate-900 p-6 hidden md:block border-r border-slate-800">
-            <div class="flex items-center gap-3 mb-10">
-                <div class="bg-indigo-600 p-2 rounded-lg">
-                    <i class="fas fa-book-open text-white text-xl"></i>
-                </div>
-                <h1 class="text-xl font-bold tracking-tight text-white">LibraFlow</h1>
-            </div>
-            <nav class="space-y-4">
-                <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-indigo-600/10 text-indigo-400 border border-indigo-600/20">
-                    <i class="fas fa-th-large"></i> Dashboard
-                </a>
-                <a href="#" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition">
-                    <i class="fas fa-book"></i> Books Catalog
-                </a>
-                <a href="#" class="fas fa-users flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition">
-                    <span class="font-sans">Members</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-800 transition">
-                    <i class="fas fa-exchange-alt"></i> Issue/Return
-                </a>
-            </nav>
-        </aside>
+on:
+  push:
+    branches: [main, master]
 
-        <main class="flex-1 p-4 md:p-8">
-            <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold text-white">Library Overview</h2>
-                    <p class="text-slate-400 text-sm">Welcome back, Admin</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="relative">
-                        <i class="fas fa-search absolute left-3 top-3 text-slate-500"></i>
-                        <input type="text" id="searchInput" placeholder="Search books..." class="bg-slate-900 border border-slate-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:border-indigo-500 w-64">
-                    </div>
-                    <button onclick="toggleModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg transition flex items-center gap-2">
-                        <i class="fas fa-plus"></i> Add Book
-                    </button>
-                </div>
-            </header>
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div class="glass p-6 rounded-2xl">
-                    <p class="text-slate-400 text-sm mb-1">Total Books</p>
-                    <h3 class="text-3xl font-bold text-white" id="statTotal">1,248</h3>
-                    <div class="mt-4 text-xs text-green-400"><i class="fas fa-arrow-up"></i> 12% from last month</div>
-                </div>
-                <div class="glass p-6 rounded-2xl border-l-4 border-indigo-500">
-                    <p class="text-slate-400 text-sm mb-1">Issued Books</p>
-                    <h3 class="text-3xl font-bold text-white" id="statIssued">452</h3>
-                    <div class="mt-4 text-xs text-slate-400">Current active circulations</div>
-                </div>
-                <div class="glass p-6 rounded-2xl border-l-4 border-amber-500">
-                    <p class="text-slate-400 text-sm mb-1">Overdue Notices</p>
-                    <h3 class="text-3xl font-bold text-white" id="statOverdue">18</h3>
-                    <div class="mt-4 text-xs text-amber-400">Requires immediate attention</div>
-                </div>
-            </div>
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-            <section class="glass rounded-2xl overflow-hidden">
-                <div class="p-6 border-b border-slate-800 flex justify-between items-center">
-                    <h3 class="font-semibold text-lg">Recent Inventory</h3>
-                    <span class="text-xs bg-slate-800 px-3 py-1 rounded-full text-slate-400">Live Update</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead class="bg-slate-900/50 text-slate-400 text-sm uppercase">
-                            <tr>
-                                <th class="p-4">Book Title</th>
-                                <th class="p-4">Author</th>
-                                <th class="p-4">Category</th>
-                                <th class="p-4">Status</th>
-                                <th class="p-4 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bookTableBody">
-                            </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-    </div>
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    <div id="bookModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6">
-            <h3 class="text-xl font-bold mb-6">Add New Volume</h3>
-            <form id="bookForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">Book Title</label>
-                    <input type="text" id="title" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">Author</label>
-                    <input type="text" id="author" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-indigo-500 outline-none">
-                </div>
-                <div>
-                    <label class="block text-sm text-slate-400 mb-1">Category</label>
-                    <select id="category" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-indigo-500 outline-none">
-                        <option>Science</option>
-                        <option>Literature</option>
-                        <option>History</option>
-                        <option>Technology</option>
-                    </select>
-                </div>
-                <div class="flex gap-3 mt-6">
-                    <button type="button" onclick="toggleModal()" class="flex-1 px-4 py-2 bg-slate-800 rounded-lg hover:bg-slate-700">Cancel</button>
-                    <button type="submit" class="flex-1 px-4 py-2 bg-indigo-600 rounded-lg hover:bg-indigo-500 font-semibold">Save Book</button>
-                </div>
-            </form>
-        </div>
-    </div>
+      - name: Build Docker image
+        run: docker build -t nishantpdl/practice-app:latest .
 
-    <script>
-        // Initial Data
-        let books = [
-            { id: 1, title: "Atomic Habits", author: "James Clear", category: "Self-Help", status: "Available" },
-            { id: 2, title: "Clean Code", author: "Robert C. Martin", category: "Technology", status: "Issued" },
-            { id: 3, title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Literature", status: "Available" }
-        ];
-
-        // Toggle Modal
-        function toggleModal() {
-            const modal = document.getElementById('bookModal');
-            modal.classList.toggle('hidden');
-        }
-
-        // Render Books
-        function renderBooks(data = books) {
-            const tbody = document.getElementById('bookTableBody');
-            tbody.innerHTML = data.map(book => `
-                <tr class="border-b border-slate-800/50 hover:bg-white/5 transition">
-                    <td class="p-4 font-medium text-white">${book.title}</td>
-                    <td class="p-4 text-slate-400">${book.author}</td>
-                    <td class="p-4"><span class="bg-slate-800 px-2 py-1 rounded text-xs">${book.category}</span></td>
-                    <td class="p-4">
-                        <span class="px-2 py-1 rounded-full text-xs ${book.status === 'Available' ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'}">
-                            ${book.status}
-                        </span>
-                    </td>
-                    <td class="p-4 text-right">
-                        <button onclick="deleteBook(${book.id})" class="text-slate-500 hover:text-red-400 transition">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
-            
-            document.getElementById('statTotal').innerText = books.length;
-        }
-
-        // Add Book
-        document.getElementById('bookForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const newBook = {
-                id: Date.now(),
-                title: document.getElementById('title').value,
-                author: document.getElementById('author').value,
-                category: document.getElementById('category').value,
-                status: "Available"
-            };
-            books.push(newBook);
-            renderBooks();
-            toggleModal();
-            e.target.reset();
-        });
-
-        // Search Filter
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = books.filter(b => 
-                b.title.toLowerCase().includes(term) || 
-                b.author.toLowerCase().includes(term)
-            );
-            renderBooks(filtered);
-        });
-
-        // Delete Book
-        function deleteBook(id) {
-            books = books.filter(b => b.id !== id);
-            renderBooks();
-        }
-
-        // Initialize
-        renderBooks();
-    </script>
-</body>
-</html>
+      - name: Push to Docker Hub
+        run: docker push nishantpdl/practice-app:latest
