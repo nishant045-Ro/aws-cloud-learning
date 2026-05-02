@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibraFlow Pro | Next-Gen Library Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-[#020617] text-slate-200 min-h-screen selection:bg-indigo-500/30">
+
+    <div class="flex">
+        <aside class="w-72 h-screen sticky top-0 bg-slate-950/50 p-6 hidden lg:flex flex-col border-r border-slate-800/50">
+            <div class="flex items-center gap-3 mb-10 px-2">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2.5 rounded-xl shadow-lg shadow-indigo-500/20">
+                    <i class="fas fa-book-bookmark text-white text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-extrabold tracking-tight text-white italic">Libra<span class="text-indigo-500">Flow</span></h1>
+            </div>
+            
+            <nav class="space-y-1 flex-1">
+                <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-4 px-3">Main Menu</p>
+                <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 transition-all">
+                    <i class="fas fa-th-large w-5"></i> <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 p-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all">
+                    <i class="fas fa-layer-group w-5"></i> <span class="font-medium">Inventory</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 p-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-white transition-all">
+                    <i class="fas fa-user-friends w-5"></i> <span class="font-medium">Members</span>
+                </a>
+                <div class="pt-6">
+                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-4 px-3">Recent Activity</p>
+                    <div id="activityLog" class="space-y-4 px-3 text-xs text-slate-400 custom-scrollbar overflow-y-auto max-h-48">
+                        </div>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-4 lg:p-10 max-w-7xl mx-auto w-full">
+            <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-white tracking-tight">System Overview</h2>
+                    <p class="text-slate-400 mt-1">Manage your digital library assets and circulation</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="relative group">
+                        <i class="fas fa-search absolute left-4 top-3.5 text-slate-500 group-focus-within:text-indigo-400 transition-colors"></i>
+                        <input type="text" id="searchInput" placeholder="Search by title or author..." 
+                               class="bg-slate-900/50 border border-slate-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10 w-full md:w-80 transition-all">
+                    </div>
+                    <button onclick="openModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-xl transition-all font-semibold shadow-lg shadow-indigo-600/20 flex items-center gap-2 whitespace-nowrap">
+                        <i class="fas fa-plus-circle"></i> Add Book
+                    </button>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                <div class="glass p-8 rounded-3xl group hover:border-indigo-500/30 transition-all duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-400 text-sm font-medium mb-1">Total Catalog</p>
+                            <h3 class="text-4xl font-black text-white counter" id="statTotal">0</h3>
+                        </div>
+                        <div class="bg-indigo-500/10 p-3 rounded-2xl text-indigo-400 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-book text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-3xl group hover:border-amber-500/30 transition-all duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-400 text-sm font-medium mb-1">On Loan</p>
+                            <h3 class="text-4xl font-black text-white" id="statIssued">0</h3>
+                        </div>
+                        <div class="bg-amber-500/10 p-3 rounded-2xl text-amber-400 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-hand-holding-heart text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-3xl group hover:border-emerald-500/30 transition-all duration-300">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-slate-400 text-sm font-medium mb-1">Available Now</p>
+                            <h3 class="text-4xl font-black text-white" id="statAvailable">0</h3>
+                        </div>
+                        <div class="bg-emerald-500/10 p-3 rounded-2xl text-emerald-400 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-check-circle text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="glass rounded-3xl shadow-2xl border border-white/5 overflow-hidden animate-fade-in">
+                <div class="p-6 border-b border-slate-800/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <h3 class="font-bold text-lg text-white">Inventory List</h3>
+                        <span id="activeCount" class="text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/20 font-bold uppercase">3 items</span>
+                    </div>
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <select id="filterCategory" class="bg-slate-900 border border-slate-800 text-xs rounded-lg px-3 py-2 outline-none focus:border-indigo-500">
+                            <option value="All">All Categories</option>
+                            <option>Science</option>
+                            <option>Literature</option>
+                            <option>Technology</option>
+                            <option>Self-Help</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-slate-900/40 text-slate-500 text-[11px] uppercase tracking-wider font-bold">
+                            <tr>
+                                <th class="p-5">Book Identification</th>
+                                <th class="p-5">Category</th>
+                                <th class="p-5">Status</th>
+                                <th class="p-5 text-right">Management</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookTableBody" class="divide-y divide-slate-800/30">
+                            </tbody>
+                    </table>
+                    <div id="emptyState" class="hidden py-20 text-center">
+                        <i class="fas fa-folder-open text-5xl text-slate-800 mb-4"></i>
+                        <p class="text-slate-500">No books found matching your criteria</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="bookModal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 z-50 transition-opacity">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-[2rem] p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h3 id="modalTitle" class="text-2xl font-bold text-white">Add New Book</h3>
+                    <p class="text-slate-500 text-sm">Enter the book details below</p>
+                </div>
+                <button onclick="closeModal()" class="text-slate-500 hover:text-white transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <form id="bookForm" class="space-y-6">
+                <input type="hidden" id="editId">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Book Title</label>
+                        <input type="text" id="title" required placeholder="e.g. Beyond Good and Evil" 
+                               class="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-600">
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Author</label>
+                        <input type="text" id="author" required placeholder="Name" 
+                               class="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all">
+                    </div>
+                    <div class="col-span-2 sm:col-span-1">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Category</label>
+                        <select id="category" class="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-3 focus:border-indigo-500 outline-none transition-all">
+                            <option>Science</option>
+                            <option>Literature</option>
+                            <option>History</option>
+                            <option>Technology</option>
+                            <option>Self-Help</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Inventory Status</label>
+                        <div class="flex gap-4">
+                            <label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-700 cursor-pointer has-[:checked]:bg-emerald-500/10 has-[:checked]:border-emerald-500 transition-all">
+                                <input type="radio" name="status" value="Available" checked class="hidden">
+                                <span class="text-sm font-medium">Available</span>
+                            </label>
+                            <label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-700 cursor-pointer has-[:checked]:bg-amber-500/10 has-[:checked]:border-amber-500 transition-all">
+                                <input type="radio" name="status" value="Issued" class="hidden">
+                                <span class="text-sm font-medium">Issued</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex gap-4 mt-8">
+                    <button type="submit" class="flex-1 px-6 py-4 bg-indigo-600 rounded-2xl hover:bg-indigo-500 text-white font-bold transition-all shadow-lg shadow-indigo-600/20">
+                        Confirm & Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // State Management
+        let books = JSON.parse(localStorage.getItem('libra_books')) || [
+            { id: 1, title: "Atomic Habits", author: "James Clear", category: "Self-Help", status: "Available" },
+            { id: 2, title: "Clean Code", author: "Robert C. Martin", category: "Technology", status: "Issued" },
+            { id: 3, title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Literature", status: "Available" }
+        ];
+
+        let activities = [];
+
+        // UI Helpers
+        const elements = {
+            tableBody: document.getElementById('bookTableBody'),
+            form: document.getElementById('bookForm'),
+            modal: document.getElementById('bookModal'),
+            searchInput: document.getElementById('searchInput'),
+            filterCategory: document.getElementById('filterCategory'),
+            activityLog: document.getElementById('activityLog')
+        };
+
+        function addActivity(msg) {
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            activities.unshift({ msg, time });
+            if(activities.length > 5) activities.pop();
+            renderActivity();
+        }
+
+        function renderActivity() {
+            elements.activityLog.innerHTML = activities.map(a => `
+                <div class="flex gap-3 animate-fade-in">
+                    <div class="w-1 bg-indigo-500 rounded-full"></div>
+                    <div>
+                        <p class="text-white">${a.msg}</p>
+                        <p class="opacity-50 text-[10px] mt-1">${a.time}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openModal(editId = null) {
+            const title = document.getElementById('modalTitle');
+            const submitBtn = elements.form.querySelector('button[type="submit"]');
+            
+            if(editId) {
+                const book = books.find(b => b.id === editId);
+                title.innerText = "Edit Book";
+                document.getElementById('editId').value = book.id;
+                document.getElementById('title').value = book.title;
+                document.getElementById('author').value = book.author;
+                document.getElementById('category').value = book.category;
+                document.querySelector(`input[name="status"][value="${book.status}"]`).checked = true;
+            } else {
+                title.innerText = "Add New Book";
+                elements.form.reset();
+                document.getElementById('editId').value = "";
+            }
+            
+            elements.modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            elements.modal.classList.add('hidden');
+        }
+
+        function updateStats() {
+            const issued = books.filter(b => b.status === 'Issued').length;
+            document.getElementById('statTotal').innerText = books.length;
+            document.getElementById('statIssued').innerText = issued;
+            document.getElementById('statAvailable').innerText = books.length - issued;
+            document.getElementById('activeCount').innerText = `${books.length} entries`;
+            localStorage.setItem('libra_books', JSON.stringify(books));
+        }
+
+        function renderBooks() {
+            const searchTerm = elements.searchInput.value.toLowerCase();
+            const categoryFilter = elements.filterCategory.value;
+
+            const filtered = books.filter(b => {
+                const matchSearch = b.title.toLowerCase().includes(searchTerm) || b.author.toLowerCase().includes(searchTerm);
+                const matchCat = categoryFilter === 'All' || b.category === categoryFilter;
+                return matchSearch && matchCat;
+            });
+
+            document.getElementById('emptyState').classList.toggle('hidden', filtered.length > 0);
+
+            elements.tableBody.innerHTML = filtered.map(book => `
+                <tr class="group hover:bg-white/[0.02] transition-all">
+                    <td class="p-5">
+                        <div class="flex items-center gap-3">
+                            <div class="h-10 w-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-500 group-hover:bg-indigo-500/10 group-hover:text-indigo-400 transition-colors">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">${book.title}</div>
+                                <div class="text-xs text-slate-500">${book.author}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-5">
+                        <span class="text-xs font-semibold text-slate-400 bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-700/50">
+                            ${book.category}
+                        </span>
+                    </td>
+                    <td class="p-5">
+                        <div class="flex items-center gap-2">
+                            <span class="h-2 w-2 rounded-full ${book.status === 'Available' ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]'}"></span>
+                            <span class="text-xs font-bold ${book.status === 'Available' ? 'text-emerald-400' : 'text-amber-400'}">
+                                ${book.status}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="p-5 text-right">
+                        <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="openModal(${book.id})" class="p-2 text-slate-400 hover:text-indigo-400 transition-colors">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteBook(${book.id})" class="p-2 text-slate-400 hover:text-red-400 transition-colors">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+            updateStats();
+        }
+
+        // Logic
+        elements.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const editId = document.getElementById('editId').value;
+            const bookData = {
+                id: editId ? parseInt(editId) : Date.now(),
+                title: document.getElementById('title').value,
+                author: document.getElementById('author').value,
+                category: document.getElementById('category').value,
+                status: document.querySelector('input[name="status"]:checked').value
+            };
+
+            if(editId) {
+                const index = books.findIndex(b => b.id === parseInt(editId));
+                books[index] = bookData;
+                addActivity(`Updated "${bookData.title}"`);
+            } else {
+                books.push(bookData);
+                addActivity(`Added "${bookData.title}"`);
+            }
+
+            renderBooks();
+            closeModal();
+        });
+
+        function deleteBook(id) {
+            const book = books.find(b => b.id === id);
+            if(confirm(`Are you sure you want to remove "${book.title}"?`)) {
+                books = books.filter(b => b.id !== id);
+                addActivity(`Deleted "${book.title}"`);
+                renderBooks();
+            }
+        }
+
+        // Events
+        elements.searchInput.addEventListener('input', renderBooks);
+        elements.filterCategory.addEventListener('change', renderBooks);
+
+        // Init
+        addActivity("System initialized");
+        renderBooks();
+    </script>
+</body>
+</html>
