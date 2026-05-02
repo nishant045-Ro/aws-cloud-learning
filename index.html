@@ -1,327 +1,307 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<<<<<<< HEAD
-    <title>Nishant's DevOps Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nishant | Cloud Architect Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --bg-dark: #050505;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background: #0a0a0a;
-            color: white;
-            font-family: 'Courier New', monospace;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 20%);
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* HEADER */
-        .header {
-            background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
+        /* Glassmorphism Effect */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        /* HEADER SECTION */
+        .hero {
+            padding: 60px 20px;
             text-align: center;
-            padding: 40px;
-            border-bottom: 2px solid #00ff88;
+            position: relative;
         }
-        .header h1 {
-            font-size: 42px;
-            color: #00ff88;
-            letter-spacing: 3px;
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
         }
-        .header p {
-            color: #aaa;
-            margin-top: 8px;
-            font-size: 16px;
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
-        .clock {
-            font-size: 24px;
-            color: #00d4ff;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        .badge {
+
+        .live-dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
             display: inline-block;
-            background: #00ff88;
-            color: #000;
-            padding: 6px 18px;
-            border-radius: 20px;
-            margin-top: 12px;
-            font-weight: bold;
-            font-size: 14px;
+            animation: pulse 1.5s infinite;
         }
 
-        /* GRID */
-        .grid {
+        /* DASHBOARD GRID */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
-        /* CARDS */
-        .card {
-            background: #111;
-            border: 1px solid #00ff8833;
-            border-radius: 12px;
-            padding: 25px;
-            transition: transform 0.3s;
+        .stat-card {
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #00ff88;
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
         }
-        .card h3 {
-            color: #00ff88;
-            font-size: 16px;
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--secondary);
             margin-bottom: 15px;
-            border-bottom: 1px solid #00ff8833;
-            padding-bottom: 8px;
-        }
-        .card p {
-            color: #aaa;
-            font-size: 13px;
-            line-height: 1.8;
         }
 
-        /* PROGRESS */
-        .progress-item {
-            margin-bottom: 12px;
+        .stat-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
         }
-        .progress-label {
+
+        /* SKILLS SECTION */
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .skill-row { margin-bottom: 18px; }
+        .skill-info {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
-            margin-bottom: 5px;
-            color: #ccc;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
         }
-        .progress-bar {
-            background: #222;
+
+        .progress-bg {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
             border-radius: 10px;
-            height: 8px;
-            overflow: hidden;
         }
+
         .progress-fill {
             height: 100%;
             border-radius: 10px;
-            background: linear-gradient(90deg, #00ff88, #00d4ff);
-            animation: load 1.5s ease-in-out;
-        }
-        @keyframes load {
-            from { width: 0; }
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0;
+            transition: width 1.5s ease-out;
         }
 
-        /* TOOLS */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-        .tool {
-            background: #1a1a2e;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            color: #00d4ff;
-            text-align: center;
-        }
-
-        /* PIPELINE */
+        /* PIPELINE TIMELINE */
         .pipeline {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .step {
+            position: relative;
+            padding-bottom: 20px;
+            padding-left: 25px;
+            border-left: 2px dashed var(--border);
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-dark);
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+        }
+
+        .step:last-child { border-left: none; }
+        .step-title { color: #fff; font-weight: 600; font-size: 0.95rem; }
+
+        /* TOOL TAGS */
+        .tag-cloud {
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .pipe-step {
-            background: #1a1a2e;
-            padding: 10px 15px;
+
+        .tag {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 14px;
             border-radius: 8px;
-            font-size: 13px;
-            border-left: 3px solid #00ff88;
-            color: #ccc;
-        }
-        .pipe-step span {
-            color: #00ff88;
-            font-weight: bold;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        /* STATS */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-width: 1000px;
-            margin: 0 auto 30px;
-            padding: 0 20px;
+        /* ANIMATIONS */
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
         }
-        .stat {
-            background: #111;
-            border: 1px solid #00d4ff33;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-        }
-        .stat .num {
-            font-size: 36px;
-            color: #00d4ff;
-            font-weight: bold;
-        }
-        .stat p { color: #aaa; font-size: 13px; margin-top: 5px; }
 
-        /* FOOTER */
-        .footer {
-            text-align: center;
-            padding: 25px;
-            color: #555;
-            border-top: 1px solid #222;
-            font-size: 13px;
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
         }
-        .footer span { color: #00ff88; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <div class="header">
-        <h1>⚡ DEVOPS DASHBOARD</h1>
-        <p>Nishant Poudel — AWS Cloud & DevOps Engineer</p>
-        <div class="clock" id="clock">Loading...</div>
-        <div class="badge">🤖 Auto Deployed via GitHub Actions</div>
-    </div>
+    <header class="hero">
+        <div class="status-pill">
+            <span class="live-dot"></span>
+            v2.0 Auto-Deployed via GitHub Actions
+        </div>
+        <h1>Nishant Poudel</h1>
+        <p style="color: var(--secondary); font-weight: 500;">AWS Cloud & DevOps Engineer</p>
+        <div id="clock" style="margin-top: 15px; font-family: monospace; color: #888;"></div>
+    </header>
 
-    <!-- STATS -->
-    <div class="stats" style="margin-top:30px;">
-        <div class="stat">
-            <div class="num">7</div>
+    <main class="container">
+        <div class="stat-card glass">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span class="stat-value">7</span>
             <p>Days Completed</p>
         </div>
-        <div class="stat">
-            <div class="num">10+</div>
+        <div class="stat-card glass">
+            <i class="fa-solid fa-cloud"></i>
+            <span class="stat-value">10+</span>
             <p>AWS Services</p>
         </div>
-        <div class="stat">
-            <div class="num">5+</div>
+        <div class="stat-card glass">
+            <i class="fa-solid fa-layer-group"></i>
+            <span class="stat-value">5+</span>
             <p>Projects Built</p>
         </div>
-    </div>
 
-    <!-- MAIN GRID -->
-    <div class="grid">
-
-        <!-- SKILLS PROGRESS -->
-        <div class="card">
-            <h3>📊 Skills Progress</h3>
-            <div class="progress-item">
-                <div class="progress-label"><span>AWS</span><span>80%</span></div>
-                <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+        <div class="glass" style="padding: 30px; grid-row: span 2;">
+            <h3 class="card-title"><i class="fa-solid fa-chart-line"></i> Technical Proficiency</h3>
+            <div class="skill-row">
+                <div class="skill-info"><span>AWS Ecosystem</span><span>85%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 85%"></div></div>
             </div>
-            <div class="progress-item">
-                <div class="progress-label"><span>Docker</span><span>75%</span></div>
-                <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+            <div class="skill-row">
+                <div class="skill-info"><span>Docker & Containers</span><span>80%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%"></div></div>
             </div>
-            <div class="progress-item">
-                <div class="progress-label"><span>Python</span><span>70%</span></div>
-                <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+            <div class="skill-row">
+                <div class="skill-info"><span>Python (Automation)</span><span>75%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 75%"></div></div>
             </div>
-            <div class="progress-item">
-                <div class="progress-label"><span>Linux</span><span>75%</span></div>
-                <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
+            <div class="skill-row">
+                <div class="skill-info"><span>CI/CD Pipelines</span><span>90%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 90%"></div></div>
             </div>
-            <div class="progress-item">
-                <div class="progress-label"><span>CI/CD</span><span>60%</span></div>
-                <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+            <div class="skill-row">
+                <div class="skill-info"><span>Linux Administration</span><span>80%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%"></div></div>
             </div>
         </div>
 
-        <!-- TOOLS -->
-        <div class="card">
-            <h3>🛠️ Tools I Know</h3>
-            <div class="tools-grid">
-                <div class="tool">☁️ AWS EC2</div>
-                <div class="tool">🪣 S3</div>
-                <div class="tool">🔐 IAM</div>
-                <div class="tool">🌐 VPC</div>
-                <div class="tool">📊 CloudWatch</div>
-                <div class="tool">📧 SNS</div>
-                <div class="tool">🐳 Docker</div>
-                <div class="tool">🐙 GitHub</div>
-                <div class="tool">🤖 CI/CD</div>
-                <div class="tool">🐍 Python</div>
-                <div class="tool">🖥️ Linux</div>
-                <div class="tool">⚙️ Nginx</div>
-            </div>
-        </div>
-
-        <!-- CI/CD PIPELINE -->
-        <div class="card">
-            <h3>🚀 My CI/CD Pipeline</h3>
+        <div class="glass" style="padding: 30px;">
+            <h3 class="card-title"><i class="fa-solid fa-rocket"></i> Deployment Workflow</h3>
             <div class="pipeline">
-                <div class="pipe-step"><span>1.</span> Write code 💻</div>
-                <div class="pipe-step"><span>2.</span> Push to GitHub 📤</div>
-                <div class="pipe-step"><span>3.</span> Actions triggers 🤖</div>
-                <div class="pipe-step"><span>4.</span> Build Docker image 🐳</div>
-                <div class="pipe-step"><span>5.</span> Push to Docker Hub 🌐</div>
-                <div class="pipe-step"><span>6.</span> Deploy to EC2 ☁️</div>
-                <div class="pipe-step"><span>7.</span> Live on internet! ✅</div>
+                <div class="step"><div class="step-title">Code Commit (Git)</div></div>
+                <div class="step"><div class="step-title">GitHub Actions Triggered</div></div>
+                <div class="step"><div class="step-title">Containerization (Docker)</div></div>
+                <div class="step"><div class="step-title">Registry Push (Docker Hub)</div></div>
+                <div class="step"><div class="step-title">EC2 Rolling Update</div></div>
+                <div class="step" style="color: var(--primary);"><div class="step-title">Production Live ✨</div></div>
             </div>
         </div>
 
-    </div>
+        <div class="glass" style="padding: 30px;">
+            <h3 class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> Stack</h3>
+            <div class="tag-cloud">
+                <div class="tag"><i class="fab fa-aws"></i> EC2</div>
+                <div class="tag"><i class="fab fa-aws"></i> S3</div>
+                <div class="tag"><i class="fas fa-lock"></i> IAM</div>
+                <div class="tag"><i class="fas fa-network-wired"></i> VPC</div>
+                <div class="tag"><i class="fab fa-docker"></i> Docker</div>
+                <div class="tag"><i class="fab fa-github"></i> Actions</div>
+                <div class="tag"><i class="fab fa-python"></i> Python</div>
+                <div class="tag"><i class="fas fa-server"></i> Nginx</div>
+            </div>
+        </div>
+    </main>
 
-    <!-- FOOTER -->
-    <div class="footer">
-        <p>Built by <span>Nishant Poudel</span> 🚀 |
-        Running on <span>🐳 Docker</span> +
-        <span>☁️ AWS EC2</span> |
-        Deployed by <span>🤖 GitHub Actions</span></p>
-    </div>
+    <footer style="text-align: center; padding-bottom: 40px; color: #555; font-size: 0.9rem;">
+        <p>Zero Manual Work Architecture • Designed by Nishant Poudel</p>
+    </footer>
 
     <script>
-        // Live Clock
         function updateClock() {
             const now = new Date();
-            document.getElementById('clock').textContent =
-                now.toLocaleTimeString() + ' | ' +
-                now.toLocaleDateString();
+            document.getElementById('clock').textContent = now.toLocaleString();
         }
         setInterval(updateClock, 1000);
         updateClock();
-    </script>
 
-=======
-    <title>Nishant's CI/CD App</title>
-    <style>
-        body {
-            background: #0a0a0a;
-            color: white;
-            font-family: Arial;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 { color: #00ff88; font-size: 48px; }
-        .box {
-            background: #16213e;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 20px auto;
-            max-width: 600px;
-        }
-        p { font-size: 20px; color: #aaa; }
-        .badge {
-            background: #00ff88;
-            color: #000;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 15px;
-        }
-    </style>
-</head>
-<body>
-    <h1>⚡ Auto Deployed!</h1>
-    <div class="box">
-        <p>Built by <strong>Nishant Poudel</strong></p>
-        <p>Deployed automatically via</p>
-        <p>🤖 GitHub Actions CI/CD - Version 2!</p>
-        <div class="badge">🚀 Zero Manual Work!</div>
-    </div>
->>>>>>> 188cbd620d438eee4552586feb882e8944540546
+        // Trigger progress bars on load
+        window.onload = () => {
+            const fills = document.querySelectorAll('.progress-fill');
+            fills.forEach(fill => {
+                const targetWidth = fill.style.width;
+                fill.style.width = '0';
+                setTimeout(() => { fill.style.width = targetWidth; }, 200);
+            });
+        };
+    </script>
 </body>
 </html>
