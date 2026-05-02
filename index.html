@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>LibraFlow Pro | Next-Gen Library Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -366,6 +367,307 @@
         // Init
         addActivity("System initialized");
         renderBooks();
+=======
+    <title>Nishant | Cloud Architect Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #00ff88;
+            --secondary: #00d4ff;
+            --bg-dark: #050505;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 20%);
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        /* HEADER SECTION */
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .live-dot {
+            height: 8px;
+            width: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* DASHBOARD GRID */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-card {
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        /* SKILLS SECTION */
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .skill-row { margin-bottom: 18px; }
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .progress-bg {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+
+        /* PIPELINE TIMELINE */
+        .pipeline {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .step {
+            position: relative;
+            padding-bottom: 20px;
+            padding-left: 25px;
+            border-left: 2px dashed var(--border);
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-dark);
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+        }
+
+        .step:last-child { border-left: none; }
+        .step-title { color: #fff; font-weight: 600; font-size: 0.95rem; }
+
+        /* TOOL TAGS */
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="status-pill">
+            <span class="live-dot"></span>
+            v2.0 Auto-Deployed via GitHub Actions
+        </div>
+        <h1>Nishant Poudel</h1>
+        <p style="color: var(--secondary); font-weight: 500;">AWS Cloud & DevOps Engineer</p>
+        <div id="clock" style="margin-top: 15px; font-family: monospace; color: #888;"></div>
+    </header>
+
+    <main class="container">
+        <div class="stat-card glass">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span class="stat-value">7</span>
+            <p>Days Completed</p>
+        </div>
+        <div class="stat-card glass">
+            <i class="fa-solid fa-cloud"></i>
+            <span class="stat-value">10+</span>
+            <p>AWS Services</p>
+        </div>
+        <div class="stat-card glass">
+            <i class="fa-solid fa-layer-group"></i>
+            <span class="stat-value">5+</span>
+            <p>Projects Built</p>
+        </div>
+
+        <div class="glass" style="padding: 30px; grid-row: span 2;">
+            <h3 class="card-title"><i class="fa-solid fa-chart-line"></i> Technical Proficiency</h3>
+            <div class="skill-row">
+                <div class="skill-info"><span>AWS Ecosystem</span><span>85%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 85%"></div></div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-info"><span>Docker & Containers</span><span>80%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%"></div></div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-info"><span>Python (Automation)</span><span>75%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 75%"></div></div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-info"><span>CI/CD Pipelines</span><span>90%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 90%"></div></div>
+            </div>
+            <div class="skill-row">
+                <div class="skill-info"><span>Linux Administration</span><span>80%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%"></div></div>
+            </div>
+        </div>
+
+        <div class="glass" style="padding: 30px;">
+            <h3 class="card-title"><i class="fa-solid fa-rocket"></i> Deployment Workflow</h3>
+            <div class="pipeline">
+                <div class="step"><div class="step-title">Code Commit (Git)</div></div>
+                <div class="step"><div class="step-title">GitHub Actions Triggered</div></div>
+                <div class="step"><div class="step-title">Containerization (Docker)</div></div>
+                <div class="step"><div class="step-title">Registry Push (Docker Hub)</div></div>
+                <div class="step"><div class="step-title">EC2 Rolling Update</div></div>
+                <div class="step" style="color: var(--primary);"><div class="step-title">Production Live ✨</div></div>
+            </div>
+        </div>
+
+        <div class="glass" style="padding: 30px;">
+            <h3 class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> Stack</h3>
+            <div class="tag-cloud">
+                <div class="tag"><i class="fab fa-aws"></i> EC2</div>
+                <div class="tag"><i class="fab fa-aws"></i> S3</div>
+                <div class="tag"><i class="fas fa-lock"></i> IAM</div>
+                <div class="tag"><i class="fas fa-network-wired"></i> VPC</div>
+                <div class="tag"><i class="fab fa-docker"></i> Docker</div>
+                <div class="tag"><i class="fab fa-github"></i> Actions</div>
+                <div class="tag"><i class="fab fa-python"></i> Python</div>
+                <div class="tag"><i class="fas fa-server"></i> Nginx</div>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding-bottom: 40px; color: #555; font-size: 0.9rem;">
+        <p>Zero Manual Work Architecture • Designed by Nishant Poudel</p>
+    </footer>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Trigger progress bars on load
+        window.onload = () => {
+            const fills = document.querySelectorAll('.progress-fill');
+            fills.forEach(fill => {
+                const targetWidth = fill.style.width;
+                fill.style.width = '0';
+                setTimeout(() => { fill.style.width = targetWidth; }, 200);
+            });
+        };
+>>>>>>> e21843e0b0e30019fc599cab301946fda451e580
     </script>
 </body>
 </html>

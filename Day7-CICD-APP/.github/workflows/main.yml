@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-name: Library App CI/CD
-=======
 name: DevOps Dashboard CI/CD
->>>>>>> e21843e0b0e30019fc599cab301946fda451e580
 
 on:
   push:
@@ -11,7 +7,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,14 +18,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-<<<<<<< HEAD
-        run: docker build -t nishantpdl/library-app:latest .
-
-      - name: Push to Docker Hub
-        run: docker push nishantpdl/library-app:latest
-=======
         run: docker build -t nishantpdl/devops-dashboard:latest .
 
       - name: Push to Docker Hub
         run: docker push nishantpdl/devops-dashboard:latest
->>>>>>> e21843e0b0e30019fc599cab301946fda451e580
