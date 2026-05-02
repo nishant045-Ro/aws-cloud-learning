@@ -27,8 +27,8 @@ jobs:
 
       - name: Build Docker image
 <<<<<<< HEAD
-        run: docker build -t nishantpdl/devops-dashboard:latest .
-
+       run: docker build -t nishantpdl/devops-dashboard:latest ./Day7-CICD-APP/
+ 
       - name: Push to Docker Hub
         run: docker push nishantpdl/devops-dashboard:latest
 =======
